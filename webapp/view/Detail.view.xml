@@ -1,0 +1,96 @@
+<mvc:View
+    controllerName="inventory.portal.controller.Detail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:form = "sap.ui.layout.form">
+
+<Page
+    title="Product Details"
+    showNavButton="true"
+    navButtonPress=".onNavBack">
+
+    <content>
+
+        <ObjectHeader
+            title="{products>name}"
+            number="{products>price}"
+            numberUnit="{products>currency}"
+            intro="{products>category}">
+
+            <statuses>
+
+                <ObjectStatus
+                    text="{
+                        path: 'products>stockStatus',
+                        formatter: '.formatter.stockText'
+                    }"
+                    state="{
+                        path: 'products>stockStatus',
+                        formatter: '.formatter.stockState'
+                    }"/>
+
+            </statuses>
+
+        </ObjectHeader>
+
+        <form:SimpleForm
+            editable="false"
+            layout="ResponsiveGridLayout">
+
+            <Label text="Description"/>
+            <Text text="{products>description}"/>
+
+            <Label text="Supplier"/>
+            <Text text="{products>supplier}"/>
+
+            <Label text="SKU"/>
+            <Text text="{products>sku}"/>
+
+            <Label text="Warehouse"/>
+            <Text text="{products>warehouse}"/>
+
+            <Label text="Stock"/>
+            <Text text="{products>stock}"/>
+
+            <Label text="Reorder Threshold"/>
+            <Text text="{products>reorderThreshold}"/>
+
+            <Label text="Last Updated"/>
+            <Text
+                text="{
+                    path:'products>lastUpdated',
+                    formatter:'.formatter.formatDate'
+                }"/>
+
+        </form:SimpleForm>
+
+    </content>
+
+    <footer>
+
+        <Toolbar>
+
+            <ToolbarSpacer/>
+
+            <Button
+                text="Edit"
+                icon="sap-icon://edit"
+                press=".onEdit"/>
+
+            <Button
+                text="Delete"
+                type="Negative"
+                icon="sap-icon://delete"
+                press=".onDelete"/>
+
+            <Button
+                text="Reorder"
+                type="Emphasized"
+                icon="sap-icon://shipping-status"
+                press=".onReorder"/>
+
+        </Toolbar>
+    </footer>
+</Page>
+
+</mvc:View>

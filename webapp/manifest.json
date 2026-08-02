@@ -1,0 +1,107 @@
+{
+  "_version": "1.86.0",
+  "sap.app": {
+    "id": "inventory.portal",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.29.0",
+      "toolsId": "241224b3-0b47-4e99-8e44-4e482ee9aacf"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.150.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "inventory.portal.i18n.i18n"
+        }
+      },
+      "products": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/products.json"
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "inventory.portal.view",
+        "async": true,
+        "viewPath": "inventory.portal.view"
+      },
+      "routes": [
+        {
+          "pattern":"",
+          "name":"List",
+          "target":"List"
+        },
+        {
+          "pattern": "detail/{productId}",
+          "name": "Detail",
+          "target": "Detail"
+        }
+      ],
+      "targets": {
+          "List": {
+              "viewName": "List"
+            },
+          "Detail": {
+              "viewName": "Detail"
+            }
+      }
+    },
+    "rootView": {
+      "viewName": "inventory.portal.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  }
+}

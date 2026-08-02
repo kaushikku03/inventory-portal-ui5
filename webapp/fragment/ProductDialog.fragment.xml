@@ -1,0 +1,152 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+
+    <Dialog
+        id="productDialog"
+        title="{form>/dialogTitle}"
+        contentWidth="700px"
+        draggable="true"
+        resizable="true">
+
+        <content>
+
+            <f:SimpleForm
+                id="productForm"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="1"
+                emptySpanL="1"
+                emptySpanM="1"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1">
+
+                <!-- Product ID -->
+
+                <Label text="Product ID"/>
+
+                <Input
+                    value="{form>/productId}"
+                    editable="false"/>
+
+                <!-- Product Name -->
+
+                <Label text="Product Name *"/>
+
+                <Input
+                    value="{form>/name}"
+                    valueState="{form>/validation/nameState}"
+                    valueStateText="Product name is required"
+                    liveChange=".onValidateForm"/>
+
+                <!-- Category -->
+
+                <Label text="Category *"/>
+
+                <Input
+                    value="{form>/category}"
+                    valueState="{form>/validation/categoryState}"
+                    valueStateText="Category is required"
+                    liveChange=".onValidateForm"/>
+
+                <!-- SKU -->
+
+                <Label text="SKU *"/>
+
+                <Input
+                    value="{form>/sku}"
+                    valueState="{form>/validation/skuState}"
+                    valueStateText="SKU is required"
+                    liveChange=".onValidateForm"/>
+
+                <!-- Supplier -->
+
+                <Label text="Supplier"/>
+
+                <Input
+                    value="{form>/supplier}"/>
+
+                <!-- Warehouse -->
+
+                <Label text="Warehouse"/>
+
+                <Input
+                    value="{form>/warehouse}"/>
+
+                <!-- Price -->
+
+                <Label text="Price *"/>
+
+                <Input
+                    type="Number"
+                    value="{form>/price}"
+                    valueState="{form>/validation/priceState}"
+                    valueStateText="Price must be a positive number"
+                    liveChange=".onValidateForm"/>
+
+                <!-- Currency -->
+
+                <Label text="Currency"/>
+
+                <Input
+                    value="{form>/currency}"/>
+
+                <!-- Stock -->
+
+                <Label text="Stock *"/>
+
+                <Input
+                    type="Number"
+                    value="{form>/stock}"
+                    valueState="{form>/validation/stockState}"
+                    valueStateText="Stock cannot be negative"
+                    liveChange=".onValidateForm"/>
+
+                <!-- Reorder Threshold -->
+
+                <Label text="Reorder Threshold *"/>
+
+                <Input
+                    type="Number"
+                    value="{form>/reorderThreshold}"
+                    valueState="{form>/validation/reorderState}"
+                    valueStateText="Threshold cannot be negative"
+                    liveChange=".onValidateForm"/>
+
+                <!-- Description -->
+
+                <Label text="Description"/>
+
+                <TextArea
+                    value="{form>/description}"
+                    rows="4"
+                    growing="true"/>
+
+            </f:SimpleForm>
+
+        </content>
+
+        <beginButton>
+
+            <Button
+                text="Save"
+                type="Emphasized"
+                press=".onSaveProduct"/>
+
+        </beginButton>
+
+        <endButton>
+            <Button
+                text="Cancel"
+                press=".onCancelProduct"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

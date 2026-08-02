@@ -1,0 +1,102 @@
+<mvc:View
+    controllerName="inventory.portal.controller.List"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page
+        id="listPage"
+        title="Products">
+        <content>
+            <Table
+                id="productsTable"
+                items="{products>/products}"
+                updateFinished=".onUpdateFinished">
+            <headerToolbar>
+                <OverflowToolbar>
+
+                    <Title
+                        id="titleProducts"
+                        text="{= 'Inventory Products (' + ${view>/visibleCount} + ')' }"
+                        level="H2"/>
+
+                    <ToolbarSpacer/>
+
+                    <SearchField
+                        id="searchField"
+                        width="15rem"
+                        placeholder="Search"
+                        liveChange=".onSearch"/>
+
+                    <Button
+                        id="btnAdd"
+                        icon="sap-icon://add"
+                        text="Add"
+                        press=".onAdd"/>
+
+                    <Button
+                        id="btnSort"
+                        icon="sap-icon://sort"
+                        tooltip="Sort"
+                        press=".onSort"/>
+
+                    <Button
+                        id="btnFilter"
+                        icon="sap-icon://filter"
+                        tooltip="Filter"
+                        press=".onFilter"/>
+
+                    <Button
+                        id="btnGroup"
+                        icon="sap-icon://group-2"
+                        tooltip="Group"
+                        press=".onGroup"/>
+
+                </OverflowToolbar>
+            </headerToolbar>
+                <columns>
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true">
+                        <Text text="Name"/>
+                    </Column>
+                    <Column
+                        minScreenWidth="Tablet"
+                        demandPopin="true">
+                        <Text text="Category"/>
+                    </Column>
+                    <Column
+                        hAlign="End"
+                        minScreenWidth="Tablet"
+                        demandPopin="true">
+                        <Text text="Price"/>
+                    </Column>
+                    <Column
+                        hAlign="Center">
+                        <Text text="Stock"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem
+                        type="Navigation"
+                        press=".onProductPress">
+                        <cells>
+                            <Text text="{products>name}" />
+                            <Text text="{products>category}" />
+                            <ObjectNumber
+                                number="{products>price}"
+                                unit="{products>currency}" />
+                            <ObjectStatus
+                                text="{
+                                    path: 'products>stockStatus',
+                                    formatter: '.formatter.stockText'
+                                }"
+                                state="{
+                                    path: 'products>stockStatus',
+                                    formatter: '.formatter.stockState'
+                                }"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>
