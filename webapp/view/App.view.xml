@@ -1,6 +1,13 @@
-<mvc:View controllerName="inventory.portal.controller.App"
+<mvc:View
+    controllerName="inventory.portal.controller.App"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
-    <App id="app"/>
+    xmlns="sap.m"
+    xmlns:f="sap.f">
+
+    <App id="app">
+        <f:FlexibleColumnLayout
+            id="fcl"
+            layout="OneColumn"/>
+    </App>
 
 </mvc:View>

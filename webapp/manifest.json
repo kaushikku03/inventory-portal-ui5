@@ -38,7 +38,8 @@
       "minUI5Version": "1.150.1",
       "libs": {
         "sap.m": {},
-        "sap.ui.core": {}
+        "sap.ui.core": {},
+        "sap.f": {}
       }
     },
     "contentDensities": {
@@ -66,55 +67,68 @@
     },
     "routing": {
       "config": {
-        "routerClass": "sap.m.routing.Router",
-        "controlAggregation": "pages",
-        "controlId": "app",
-        "transition": "slide",
+        "routerClass": "sap.f.routing.Router",
         "type": "View",
         "viewType": "XML",
         "path": "inventory.portal.view",
-        "async": true,
-        "viewPath": "inventory.portal.view"
+        "viewPath": "inventory.portal.view",
+        "controlId": "fcl",
+        "controlAggregation": "beginColumnPages",
+        "async": true
       },
       "routes": [
-        {
-          "pattern":"",
-          "name":"List",
-          "target":"List"
-        },
-        {
-          "pattern": "detail/{productId}",
-          "name": "Detail",
-          "target": "Detail"
-        },
-        {
-          "pattern": "notfound",
-          "name": "NotFound",
-          "target": "NotFound"
-        },
-        {
-            "pattern": ":all*:",
-            "name": "CatchAll",
-            "target": "NotFound"
-        }
-      ],
+  {
+    "pattern": "",
+    "name": "List",
+    "target": ["List"]
+  },
+  {
+    "pattern": "detail/notfound",
+    "name": "DetailNotFound",
+    "target": ["List", "NotFound"]
+  },
+  {
+    "pattern": "detail/{productId}",
+    "name": "Detail",
+    "target": ["List", "Detail"]
+  },
+  {
+    "pattern": ":all*:",
+    "name": "CatchAll",
+    "target": ["AppNotFound"]
+  }
+],
       "targets": {
-          "List": {
-              "viewName": "List"
-            },
-          "Detail": {
-              "viewName": "Detail"
-            },
-          "NotFound": {
-                "viewName": "NotFound",
-                "viewLevel": 3
-            }
+        "List": {
+          "id": "List",
+          "name": "List",
+          "viewName": "List",
+          "controlAggregation": "beginColumnPages"
+        },
+        "Detail": {
+          "id": "Detail",
+          "name": "Detail",
+          "viewName": "Detail",
+          "controlAggregation": "midColumnPages"
+        },
+        "NotFound": {
+          "id": "NotFound",
+          "name": "NotFound",
+          "viewName": "NotFound",
+          "controlAggregation": "midColumnPages"
+        },
+        "AppNotFound": {
+          "id": "AppNotFound",
+          "name": "NotFound",
+          "viewName": "NotFound",
+          "controlAggregation": "beginColumnPages"
+        }
       }
     },
     "rootView": {
       "viewName": "inventory.portal.view.App",
       "type": "XML",
-      "id": "App",
+      "id": "app",
       "async": true
     }
   }

@@ -1,25 +1,60 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
-    "sap/ui/core/UIComponent",
-    "sap/ui/core/routing/History"
-], function (
-    Controller,
-    UIComponent,
-    History
-) {
+    "sap/ui/core/mvc/Controller"
+], function (Controller) {
     "use strict";
 
     return Controller.extend("inventory.portal.controller.NotFound", {
 
-        onNavBack: function () {
-            sap.ui.core.UIComponent
-                .getRouterFor(this)
-                .navTo("List", {}, true);
+        onInit: function () {
+
+            const oRouter = this.getOwnerComponent().getRouter();
+
+            oRouter.getRoute("DetailNotFound")
+                .attachPatternMatched(this._onDetailNotFound, this);
+
+            oRouter.getRoute("CatchAll")
+                .attachPatternMatched(this._onAppNotFound, this);
+
         },
+        onNavBack: function () {
+
+            this.getOwnerComponent()
+                .getRootControl()
+                .byId("fcl")
+                .setLayout("OneColumn");
+
+            this.getOwnerComponent()
+                .getRouter()
+                .navTo("List", {}, true);
+
+        },
+
         onHomePress: function () {
-            UIComponent.getRouterFor(this).navTo("List", {}, true);
+
+            this.getOwnerComponent()
+                .getRootControl()
+                .byId("fcl")
+                .setLayout("OneColumn");
+
+            this.getOwnerComponent()
+                .getRouter()
+                .navTo("List", {}, true);
+
+        },
+
+        _onDetailNotFound: function () {
+            this.getOwnerComponent()
+                .getRootControl()
+                .byId("fcl")
+                .setLayout("TwoColumnsMidExpanded");
+        },
+
+        _onAppNotFound: function () {
+            this.getOwnerComponent()
+                .getRootControl()
+                .byId("fcl")
+                .setLayout("OneColumn");
         }
 
     });
-
 });

@@ -5,16 +5,16 @@ sap.ui.define([
     "sap/ui/model/FilterOperator",
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Sorter",
-    "sap/ui/core/Fragment" ,
+    "sap/ui/core/Fragment",
     "sap/m/MessageToast"
-], (Controller,formatter,Filter,FilterOperator,JSONModel,Sorter,Fragment,MessageToast) => {
+], (Controller, formatter, Filter, FilterOperator, JSONModel, Sorter, Fragment, MessageToast) => {
     "use strict";
     return Controller.extend("inventory.portal.controller.List", {
         formatter: formatter,
         onInit: function () {
             const oViewModel = new JSONModel({
-                    visibleCount: 0
-                });
+                visibleCount: 0
+            });
             this.getView().setModel(oViewModel, "view");
 
             this._oBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
@@ -84,10 +84,23 @@ sap.ui.define([
             this._oProductDialog.open();
         },
         onProductPress: function (oEvent) {
-            const oContext = oEvent.getSource().getBindingContext("products");
-            this.getOwnerComponent().getRouter().navTo("Detail", {
-                productId: oContext.getProperty("productId")
-            });
+            console.log("Check");
+            var sProductId = oEvent
+                .getSource()
+                .getBindingContext("products")
+                .getProperty("productId");
+
+            var oFCL = this.getOwnerComponent()
+                .getRootControl()
+                .byId("fcl");
+
+            oFCL.setLayout("TwoColumnsMidExpanded");
+
+            this.getOwnerComponent()
+                .getRouter()
+                .navTo("Detail", {
+                    productId: sProductId
+                });
         },
         onSort: function () {
             this._openViewSettings("sort");

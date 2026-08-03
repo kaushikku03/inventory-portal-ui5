@@ -4,33 +4,45 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/m/MessageToast",
     "sap/ui/core/UIComponent",
-    "sap/ui/core/routing/History",
     "sap/ui/core/Fragment",
     "sap/ui/model/json/JSONModel"
-], function ( Controller, formatter, MessageBox, MessageToast, UIComponent, History, Fragment, JSONModel ) {
+], function (Controller, formatter, MessageBox, MessageToast, UIComponent, Fragment, JSONModel) {
     "use strict";
     return Controller.extend("inventory.portal.controller.Detail", {
         formatter: formatter,
         onInit: function () {
-
-            const oRouter = UIComponent.getRouterFor(this);
-
-            oRouter.getRoute("Detail")
+            this.getOwnerComponent()
+                .getRouter()
+                .getRoute("Detail")
                 .attachPatternMatched(this._onObjectMatched, this);
             this._oBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
             formatter.setResourceBundle(this._oBundle);
         },
         _onObjectMatched: function (oEvent) {
+
             const sProductId = oEvent.getParameter("arguments").productId;
+
             const oModel = this.getOwnerComponent().getModel("products");
             const aProducts = oModel.getProperty("/products");
+
             const iIndex = aProducts.findIndex(function (oProduct) {
                 return oProduct.productId === sProductId;
             });
-            if (iIndex === -1) {
-                UIComponent.getRouterFor(this).navTo("NotFound");
+
+            if (iIndex < 0) {
+
+                this.getOwnerComponent()
+                    .getRootControl()
+                    .byId("fcl")
+                    .setLayout("TwoColumnsMidExpanded");
+
+                this.getOwnerComponent()
+                    .getRouter()
+                    .navTo("DetailNotFound", {}, true);
+
                 return;
             }
+
             this.getView().bindElement({
                 path: "/products/" + iIndex,
                 model: "products"
@@ -38,13 +50,15 @@ sap.ui.define([
 
         },
         onNavBack: function () {
-            const oHistory = History.getInstance();
-            const sPreviousHash = oHistory.getPreviousHash();
-            if (sPreviousHash !== undefined) {
-                window.history.go(-1);
-            } else {
-                UIComponent.getRouterFor(this).navTo("List", {}, true);
-            }
+
+            this.getOwnerComponent()
+                .getRootControl()
+                .byId("fcl")
+                .setLayout("OneColumn");
+
+            this.getOwnerComponent()
+                .getRouter()
+                .navTo("List", {}, true);
         },
         onEdit: async function () {
             if (!this._oProductDialog) {
@@ -87,19 +101,29 @@ sap.ui.define([
                         if (sAction !== MessageBox.Action.YES) {
                             return;
                         }
+
                         const oContext = this.getView().getBindingContext("products");
                         const sPath = oContext.getPath();
-                        const iIndex = parseInt(
-                            sPath.split("/")[2],
-                            10
-                        );
+                        const iIndex = parseInt(sPath.split("/")[2], 10);
+
                         const oModel = this.getOwnerComponent().getModel("products");
                         const aProducts = oModel.getProperty("/products");
+
                         aProducts.splice(iIndex, 1);
                         oModel.refresh(true);
+
                         MessageToast.show(this._oBundle.getText("productDeleted"));
-                        UIComponent.getRouterFor(this)
-                            .navTo("List");
+
+                        const oFCL = this.getOwnerComponent()
+                            .getRootControl()
+                            .byId("fcl");
+
+                        oFCL.setLayout("OneColumn");
+
+                        this.getOwnerComponent()
+                            .getRouter()
+                            .navTo("List", {}, true);
+
                     }.bind(this)
 
                 }
@@ -189,8 +213,8 @@ sap.ui.define([
             // Price
             oValidation.priceState =
                 oData.price !== "" &&
-                !isNaN(oData.price) &&
-                Number(oData.price) >= 0
+                    !isNaN(oData.price) &&
+                    Number(oData.price) >= 0
                     ? "None"
                     : "Error";
             if (oValidation.priceState === "Error") {
@@ -199,8 +223,8 @@ sap.ui.define([
             // Stock
             oValidation.stockState =
                 oData.stock !== "" &&
-                !isNaN(oData.stock) &&
-                Number(oData.stock) >= 0
+                    !isNaN(oData.stock) &&
+                    Number(oData.stock) >= 0
                     ? "None"
                     : "Error";
             if (oValidation.stockState === "Error") {
@@ -209,8 +233,8 @@ sap.ui.define([
             // Reorder Threshold
             oValidation.reorderState =
                 oData.reorderThreshold !== "" &&
-                !isNaN(oData.reorderThreshold) &&
-                Number(oData.reorderThreshold) >= 0
+                    !isNaN(oData.reorderThreshold) &&
+                    Number(oData.reorderThreshold) >= 0
                     ? "None"
                     : "Error";
             if (oValidation.reorderState === "Error") {
