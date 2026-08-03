@@ -1,7 +1,7 @@
 sap.ui.define([
     "sap/ui/core/UIComponent",
-    "inventory/portal/model/models"
-], (UIComponent, models) => {
+    "inventory/portal/model/formatter"
+], (UIComponent,formatter) => {
     "use strict";
 
     return UIComponent.extend("inventory.portal.Component", {
@@ -17,7 +17,22 @@ sap.ui.define([
             UIComponent.prototype.init.apply(this, arguments);
 
             // set the device model
-            this.setModel(models.createDeviceModel(), "device");
+            const oProductsModel = this.getModel("products");
+
+            oProductsModel.attachRequestCompleted(() => {
+
+                const aProducts = oProductsModel.getProperty("/products") || [];
+
+                aProducts.forEach((oProduct) => {
+                    oProduct.stockStatus = formatter.stockStatus(
+                        oProduct.stock,
+                        oProduct.reorderThreshold
+                    );
+                });
+
+                oProductsModel.refresh(true);
+
+            });
 
             // enable routing
             this.getRouter().initialize();

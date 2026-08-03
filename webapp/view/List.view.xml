@@ -4,7 +4,7 @@
     xmlns="sap.m">
     <Page
         id="listPage"
-        title="Products">
+        title="{i18n>productsTitle}">
         <content>
             <Table
                 id="productsTable"
@@ -12,78 +12,74 @@
                 updateFinished=".onUpdateFinished">
             <headerToolbar>
                 <OverflowToolbar>
-
                     <Title
                         id="titleProducts"
-                        text="{= 'Inventory Products (' + ${view>/visibleCount} + ')' }"
+                        text="{= ${i18n>inventoryProducts} + ' (' + ${view>/visibleCount} + ')' }"
                         level="H2"/>
-
                     <ToolbarSpacer/>
-
                     <SearchField
                         id="searchField"
                         width="15rem"
-                        placeholder="Search"
+                        placeholder="{i18n>search}"
                         liveChange=".onSearch"/>
-
                     <Button
                         id="btnAdd"
                         icon="sap-icon://add"
-                        text="Add"
-                        press=".onAdd"/>
-
+                        text="{i18n>add}"
+                        press=".onAdd"
+                        type="Emphasized"/>
                     <Button
                         id="btnSort"
                         icon="sap-icon://sort"
-                        tooltip="Sort"
+                        tooltip="{i18n>sort}"
                         press=".onSort"/>
-
                     <Button
                         id="btnFilter"
                         icon="sap-icon://filter"
-                        tooltip="Filter"
+                        tooltip="{i18n>filter}"
                         press=".onFilter"/>
-
                     <Button
                         id="btnGroup"
                         icon="sap-icon://group-2"
-                        tooltip="Group"
+                        tooltip="{i18n>group}"
                         press=".onGroup"/>
-
                 </OverflowToolbar>
             </headerToolbar>
                 <columns>
                     <Column
                         minScreenWidth="Tablet"
-                        demandPopin="true">
-                        <Text text="Name"/>
+                        demandPopin="true"
+                        hAlign="Center">
+                        <Text text="{i18n>name}" textAlign="Center"/>
                     </Column>
                     <Column
                         minScreenWidth="Tablet"
-                        demandPopin="true">
-                        <Text text="Category"/>
+                        demandPopin="true"
+                        hAlign="Center">
+                        <Text text="{i18n>category}" textAlign="Center"/>
                     </Column>
                     <Column
-                        hAlign="End"
                         minScreenWidth="Tablet"
-                        demandPopin="true">
-                        <Text text="Price"/>
+                        demandPopin="true"
+                        hAlign="Center">
+                        <Text text="{i18n>price}" textAlign="Center"/>
                     </Column>
                     <Column
                         hAlign="Center">
-                        <Text text="Stock"/>
+                        <Text text="{i18n>stock}"/>
                     </Column>
                 </columns>
                 <items>
                     <ColumnListItem
                         type="Navigation"
-                        press=".onProductPress">
+                        press=".onProductPress"
+                        class="productRow">
                         <cells>
-                            <Text text="{products>name}" />
-                            <Text text="{products>category}" />
+                            <Text text="{products>name}" textAlign="Center"/>
+                            <Text text="{products>category}" textAlign="Center"/>
                             <ObjectNumber
                                 number="{products>price}"
-                                unit="{products>currency}" />
+                                unit="{products>currency}"/>
                             <ObjectStatus
                                 text="{
                                     path: 'products>stockStatus',

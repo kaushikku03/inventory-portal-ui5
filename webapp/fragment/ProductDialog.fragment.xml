@@ -2,16 +2,13 @@
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:f="sap.ui.layout.form">
-
     <Dialog
         id="productDialog"
         title="{form>/dialogTitle}"
         contentWidth="700px"
         draggable="true"
         resizable="true">
-
         <content>
-
             <f:SimpleForm
                 id="productForm"
                 editable="true"
@@ -28,124 +25,82 @@
                 columnsXL="1"
                 columnsL="1"
                 columnsM="1">
-
                 <!-- Product ID -->
-
-                <Label text="Product ID"/>
-
+                <Label text="{i18n>productId}"/>
                 <Input
                     value="{form>/productId}"
                     editable="false"/>
-
                 <!-- Product Name -->
-
-                <Label text="Product Name *"/>
-
+                <Label
+                    text="{i18n>productName}"
+                    required="true"/>
                 <Input
                     value="{form>/name}"
                     valueState="{form>/validation/nameState}"
-                    valueStateText="Product name is required"
-                    liveChange=".onValidateForm"/>
+                    valueStateText="{i18n>productNameRequired}"/>
 
                 <!-- Category -->
-
-                <Label text="Category *"/>
-
+                <Label
+                    text="{i18n>category}"
+                    required="true"/>
                 <Input
                     value="{form>/category}"
                     valueState="{form>/validation/categoryState}"
-                    valueStateText="Category is required"
-                    liveChange=".onValidateForm"/>
-
+                    valueStateText="{i18n>categoryRequired}"/>
                 <!-- SKU -->
-
-                <Label text="SKU *"/>
-
+                <Label
+                    text="{i18n>sku}"
+                    required="true"/>
                 <Input
                     value="{form>/sku}"
                     valueState="{form>/validation/skuState}"
-                    valueStateText="SKU is required"
-                    liveChange=".onValidateForm"/>
-
+                    valueStateText="{i18n>skuRequired}"/>
                 <!-- Supplier -->
-
-                <Label text="Supplier"/>
-
-                <Input
-                    value="{form>/supplier}"/>
-
+                <Label text="{i18n>supplier}"/>
+                <Input value="{form>/supplier}"/>
                 <!-- Warehouse -->
-
-                <Label text="Warehouse"/>
-
-                <Input
-                    value="{form>/warehouse}"/>
-
+                <Label text="{i18n>warehouse}"/>
+                <Input value="{form>/warehouse}"/>
                 <!-- Price -->
-
-                <Label text="Price *"/>
-
+                <Label text="{i18n>price}" required="true"/>
                 <Input
                     type="Number"
                     value="{form>/price}"
                     valueState="{form>/validation/priceState}"
-                    valueStateText="Price must be a positive number"
-                    liveChange=".onValidateForm"/>
-
+                    valueStateText="{i18n>pricePositive}"/>
                 <!-- Currency -->
-
-                <Label text="Currency"/>
-
+                <Label text="{i18n>currency}"/>
                 <Input
-                    value="{form>/currency}"/>
-
+                    value="{form>/currency}"
+                    editable="false"/>
                 <!-- Stock -->
-
-                <Label text="Stock *"/>
-
+                <Label text="{i18n>stock}" required="true"/>
                 <Input
                     type="Number"
                     value="{form>/stock}"
                     valueState="{form>/validation/stockState}"
-                    valueStateText="Stock cannot be negative"
-                    liveChange=".onValidateForm"/>
-
+                    valueStateText="{i18n>stockNonNegative}"/>
                 <!-- Reorder Threshold -->
-
-                <Label text="Reorder Threshold *"/>
-
+                <Label text="{i18n>reorderThreshold}" required="true"/>
                 <Input
                     type="Number"
                     value="{form>/reorderThreshold}"
                     valueState="{form>/validation/reorderState}"
-                    valueStateText="Threshold cannot be negative"
-                    liveChange=".onValidateForm"/>
-
+                    valueStateText="{i18n>thresholdNonNegative}"/>
                 <!-- Description -->
-
-                <Label text="Description"/>
-
-                <TextArea
-                    value="{form>/description}"
-                    rows="4"
-                    growing="true"/>
-
+                <Label text="{i18n>description}"/>
+                <TextArea value="{form>/description}" rows="4" growing="true"/>
             </f:SimpleForm>
-
         </content>
-
         <beginButton>
-
             <Button
-                text="Save"
+                text="{i18n>save}"
                 type="Emphasized"
                 press=".onSaveProduct"/>
-
         </beginButton>
-
         <endButton>
             <Button
-                text="Cancel"
+                text="{i18n>cancel}"
                 press=".onCancelProduct"/>
         </endButton>
     </Dialog>

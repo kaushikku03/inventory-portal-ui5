@@ -2,7 +2,13 @@ sap.ui.define([
     "sap/ui/core/format/DateFormat"
 ],(DateFormat)=>{
     "use strict";
+    let oBundle = null;
+
     return {
+        setResourceBundle: function (oResourceBundle) {
+            oBundle = oResourceBundle;
+        },
+
         stockStatus: function (iStock, iReorderThreshold) {
 
             if (iStock === 0) {
@@ -15,17 +21,19 @@ sap.ui.define([
 
             return "AVAILABLE";
         },
-         stockText: function (sStatus) {
-
+        stockText: function (sStatus) {
+            if (!oBundle) {
+                return sStatus;
+            }
             switch (sStatus) {
                 case "AVAILABLE":
-                    return "Available";
+                    return oBundle.getText("available");
 
                 case "LOW":
-                    return "Low Stock";
+                    return oBundle.getText("lowStock");
 
                 case "OUT":
-                    return "Out of Stock";
+                    return oBundle.getText("outOfStock");
 
                 default:
                     return "";

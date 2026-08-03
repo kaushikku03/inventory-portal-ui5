@@ -8,50 +8,56 @@
         <sortItems>
             <ViewSettingsItem
                 key="name"
-                text="Name"/>
+                text="{i18n>name}"/>
             <ViewSettingsItem
                 key="price"
-                text="Price"/>
+                text="{i18n>price}"/>
             <ViewSettingsItem
                 key="stock"
-                text="Stock"/>
+                text="{i18n>stock}"/>
         </sortItems>
+
         <!-- GROUP -->
         <groupItems>
             <ViewSettingsItem
                 key="category"
-                text="Category"/>
+                text="{i18n>category}"/>
         </groupItems>
+
         <!-- FILTER -->
         <filterItems>
             <ViewSettingsFilterItem
                 key="status"
-                text="Stock Status">
+                text="{i18n>stockStatus}">
                 <items>
                     <ViewSettingsItem
                         key="available"
-                        text="Available"/>
+                        text="{i18n>available}"/>
+
                     <ViewSettingsItem
                         key="low"
-                        text="Low Stock"/>
+                        text="{i18n>lowStock}"/>
+
                     <ViewSettingsItem
                         key="out"
-                        text="Out of Stock"/>
+                        text="{i18n>outOfStock}"/>
                 </items>
             </ViewSettingsFilterItem>
             <ViewSettingsFilterItem
                 key="price"
-                text="Price">
+                text="{i18n>price}">
                 <items>
                     <ViewSettingsItem
                         key="0-50"
-                        text="$0 - $50"/>
+                        text="{i18n>priceRange1}"/>
+
                     <ViewSettingsItem
                         key="50-100"
-                        text="$50 - $100"/>
+                        text="{i18n>priceRange2}"/>
+
                     <ViewSettingsItem
                         key="100+"
-                        text="Above $100"/>
+                        text="{i18n>priceRange3}"/>
                 </items>
             </ViewSettingsFilterItem>
         </filterItems>

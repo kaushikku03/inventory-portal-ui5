@@ -2,15 +2,13 @@
     controllerName="inventory.portal.controller.Detail"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-    xmlns:form = "sap.ui.layout.form">
+    xmlns:form="sap.ui.layout.form">
 
 <Page
-    title="Product Details"
+    title="{i18n>productDetails}"
     showNavButton="true"
     navButtonPress=".onNavBack">
-
     <content>
-
         <ObjectHeader
             title="{products>name}"
             number="{products>price}"
@@ -18,79 +16,95 @@
             intro="{products>category}">
 
             <statuses>
-
                 <ObjectStatus
                     text="{
-                        path: 'products>stockStatus',
-                        formatter: '.formatter.stockText'
+                        path:'products>stockStatus',
+                        formatter:'.formatter.stockText'
                     }"
                     state="{
-                        path: 'products>stockStatus',
-                        formatter: '.formatter.stockState'
+                        path:'products>stockStatus',
+                        formatter:'.formatter.stockState'
                     }"/>
-
             </statuses>
 
         </ObjectHeader>
 
-        <form:SimpleForm
-            editable="false"
-            layout="ResponsiveGridLayout">
+        <!-- General Information -->
 
-            <Label text="Description"/>
-            <Text text="{products>description}"/>
+        <Panel
+            headerText="{i18n>generalInformation}"
+            expandable="false"
+            class="sapUiResponsiveMargin">
+            <form:SimpleForm
+                editable="false"
+                layout="ResponsiveGridLayout"
+                columnsXL="2"
+                columnsL="2"
+                columnsM="1">
+                <Label text="{i18n>description}"/>
+                <Text text="{products>description}"/>
 
-            <Label text="Supplier"/>
-            <Text text="{products>supplier}"/>
+                <Label text="{i18n>supplier}"/>
+                <ObjectIdentifier title="{products>supplier}"/>
 
-            <Label text="SKU"/>
-            <Text text="{products>sku}"/>
+                <Label text="{i18n>sku}"/>
+                <ObjectIdentifier title="{products>sku}"/>
 
-            <Label text="Warehouse"/>
-            <Text text="{products>warehouse}"/>
+                <Label text="{i18n>warehouse}"/>
+                <ObjectIdentifier title="{products>warehouse}"/>
+            </form:SimpleForm>
 
-            <Label text="Stock"/>
-            <Text text="{products>stock}"/>
+        </Panel>
 
-            <Label text="Reorder Threshold"/>
-            <Text text="{products>reorderThreshold}"/>
-
-            <Label text="Last Updated"/>
-            <Text
-                text="{
-                    path:'products>lastUpdated',
-                    formatter:'.formatter.formatDate'
-                }"/>
-
-        </form:SimpleForm>
-
+        <!-- Inventory Information -->
+        <Panel
+            headerText="{i18n>inventoryInformation}"
+            expandable="false"
+            class="sapUiResponsiveMargin">
+            <HBox
+                justifyContent="SpaceAround"
+                renderType="Bare">
+                <VBox alignItems="Center">
+                    <Title text="{i18n>currentStock}"/>
+                    <ObjectNumber
+                        number="{products>stock}"
+                        emphasized="true"/>
+                </VBox>
+                <VBox alignItems="Center">
+                    <Title text="{i18n>reorderThreshold}"/>
+                    <ObjectNumber
+                        number="{products>reorderThreshold}"/>
+                </VBox>
+                <VBox alignItems="Center">
+                    <Title text="{i18n>lastUpdated}"/>
+                    <Text
+                        text="{
+                            path:'products>lastUpdated',
+                            formatter:'.formatter.formatDate'
+                        }"/>
+                </VBox>
+            </HBox>
+        </Panel>
     </content>
-
     <footer>
-
-        <Toolbar>
-
+        <OverflowToolbar>
             <ToolbarSpacer/>
-
             <Button
-                text="Edit"
+                text="{i18n>edit}"
+                type="Emphasized"
                 icon="sap-icon://edit"
                 press=".onEdit"/>
-
             <Button
-                text="Delete"
-                type="Negative"
+                text="{i18n>delete}"
                 icon="sap-icon://delete"
+                type="Reject"
                 press=".onDelete"/>
-
             <Button
-                text="Reorder"
-                type="Emphasized"
+                text="{i18n>reorder}"
                 icon="sap-icon://shipping-status"
+                type="Accept"
                 press=".onReorder"/>
-
-        </Toolbar>
+        </OverflowToolbar>
     </footer>
 </Page>
-
 </mvc:View>

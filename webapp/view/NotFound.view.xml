@@ -1,0 +1,25 @@
+<mvc:View
+    controllerName="inventory.portal.controller.NotFound"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page
+        id="notFoundPage"
+        title="{i18n>pageNotFound}"
+        showNavButton="true"
+        navButtonPress=".onNavBack">
+        <content>
+            <IllustratedMessage
+                illustrationType="sapIllus-NoData"
+                title="404"
+                description="{i18n>pageNotFound}">
+                <additionalContent>
+                    <Button
+                        text="{i18n>backToProducts}"
+                        type="Emphasized"
+                        icon="sap-icon://home"
+                        press=".onHomePress"/>
+                </additionalContent>
+            </IllustratedMessage>
+        </content>
+    </Page>
+</mvc:View>
