@@ -49,7 +49,7 @@ sap.ui.define([
             if (!this._oProductDialog) {
                 this._oProductDialog = await Fragment.load({
                     id: this.getView().getId(),
-                    name: "inventory.portal.fragment.ProductDialog",
+                    name: "inventory.portal.fragment.AddEditProduct",
                     controller: this
                 });
                 this.getView().addDependent(this._oProductDialog);
